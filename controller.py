@@ -41,7 +41,10 @@ class PPTController:
         self.view = view
         self.model = None
         self.edited_ppt_path = None
-        self.translator = TranslatorModel()
+        self.translator = TranslatorModel(
+            src_lang="ja_XX",  # 入力：日本語
+            tgt_lang="en_XX"   # 出力：英語
+        )
 
         # イベント接続
         view.open_btn.clicked.connect(self.load_ppt)
@@ -60,7 +63,8 @@ class PPTController:
         self.view.slide_select.clear()
         self.view.slide_select.addItems([f"Slide {i+1}" for i in range(len(slides_text))])
         self.view.model_path_label.setText(f"PPTパス: {path}")
-        self.view.input_text.setText(slides_text[0])
+        # ← join して文字列に変換
+        self.view.input_text.setText("\n".join(slides_text[0]))
         self.view.output_text.clear()
 
     def display_slide_text(self):
@@ -68,25 +72,28 @@ class PPTController:
         idx = self.view.slide_select.currentIndex()
         slides_text = self.model.extract_slides_text()
         if 0 <= idx < len(slides_text):
-            self.view.input_text.setText(slides_text[idx])
+            # ← join して文字列に変換
+            self.view.input_text.setText("\n".join(slides_text[idx]))
             self.view.output_text.clear()
 
     def translate_slide(self):
         if not self.model: return
         idx = self.view.slide_select.currentIndex()
-        text = self.view.input_text.toPlainText()
-        translated = self.translator.translate_text(text)
-        self.view.output_text.setText(translated)
-        self.model.update_slide_text(idx, translated)
+        slides_text = self.model.extract_slides_text()
+        original_texts = slides_text[idx]
+        translated_texts = [self.translator.translate_text(t) for t in original_texts]
+        self.view.output_text.setText("\n".join(translated_texts))
+        self.model.update_slide_text(idx, translated_texts)
         self.edited_ppt_path = self.model.save()
 
     def toneup_slide(self):
         if not self.model: return
         idx = self.view.slide_select.currentIndex()
-        text = self.view.input_text.toPlainText()
-        toned = self.translator.tone_up(text)
-        self.view.output_text.setText(toned)
-        self.model.update_slide_text(idx, toned)
+        slides_text = self.model.extract_slides_text()
+        original_texts = slides_text[idx]
+        toned_texts = [self.translator.tone_up(t) for t in original_texts]
+        self.view.output_text.setText("\n".join(toned_texts))
+        self.model.update_slide_text(idx, toned_texts)
         self.edited_ppt_path = self.model.save()
 
     def save_ppt(self):

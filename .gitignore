@@ -9,3 +9,6 @@ __pycache__/
 
 # macOSの余計なファイル
 .DS_Store
+
+# OpenVINOモデル
+openvino_mode
