@@ -1,5 +1,7 @@
 # ppt-master
 3.11 または 3.10
+
+
 手順１ 
 python -m venv venv
 
@@ -10,10 +12,10 @@ python -m venv venv
 【1】Windows の場合
 コマンドプロンプト（cmd）や PowerShell で：
 venv\Scripts\activate
-
+<!-- 
 【2】Mac / Linux の場合
 ターミナルで：
-source venv/bin/activate
+source venv/bin/activate -->
 
 成功すると、プロンプトの前に (venv) と表示されます。
 
@@ -35,6 +37,9 @@ optimum-cli export openvino --model Helsinki-NLP/opus-mt-ja-en --task translatio
 optimum-cli export openvino --model Helsinki-NLP/opus-mt-ja-en --task translation --weight-format int8 openvino_model -->
 
 optimum-cli export openvino --model facebook/mbart-large-50-many-to-many-mmt --task translation --weight-format int8 openvino_model
+
+
+python main.py
 
 Model: データとロジック（例：DB操作、計算など）
 View: UI部分（例：GUI、HTML、出力結果）
