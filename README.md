@@ -1,5 +1,5 @@
 # ppt-master
-
+3.11 または 3.10
 手順１ 
 python -m venv venv
 

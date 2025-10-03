@@ -79,7 +79,14 @@ class PPTController:
         idx = self.view.slide_select.currentIndex()
         slides_text = self.model.extract_slides_text()
         original_texts = slides_text[idx]
-        translated_texts = [self.translator.translate_text(t) for t in original_texts]
+
+        translated_texts = []
+        for text in original_texts:
+            # 改行を保持したまま1行ごとに翻訳
+            lines = text.split("\n")
+            translated_lines = [self.translator.translate_text(line) if line.strip() else "" for line in lines]
+            translated_texts.append("\n".join(translated_lines))
+
         self.view.output_text.setText("\n".join(translated_texts))
         self.model.update_slide_text(idx, translated_texts)
         self.edited_ppt_path = self.model.save()
