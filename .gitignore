@@ -11,4 +11,4 @@ __pycache__/
 .DS_Store
 
 # OpenVINOモデル
-openvino_mode
+openvino_model/
