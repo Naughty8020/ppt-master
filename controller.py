@@ -97,11 +97,17 @@ class PPTController:
         self.edited_ppt_path = self.model.save()
 
     def save_ppt(self):
-        if not self.model: return
+        if not self.model:
+            return
         close_ppt()
-        path = self.model.save()
-        self.edited_ppt_path = path
-        self.view.output_text.append(f"PPT保存完了: {path}")
+        idx = self.view.slide_select.currentIndex()
+        if 0 <= idx < len(self.model.extract_slides_text()):
+            edited_texts = self.view.output_text.toPlainText().split("\n")
+            self.model.update_slide_text(idx, edited_texts)
+            path = self.model.save()
+            self.edited_ppt_path = path
+            self.view.output_text.append(f"PPT保存完了: {path}")
+
 
     def open_in_app(self):
         if not self.model: return
