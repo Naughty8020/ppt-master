@@ -41,3 +41,5 @@ optimum-cli export openvino --model Helsinki-NLP/opus-mt-ja-en --task translatio
 optimum-cli export openvino --model Helsinki-NLP/opus-mt-ja-en --task translation --weight-format int8 openvino_model -->
 
 optimum-cli export openvino --model facebook/mbart-large-50-many-to-many-mmt --task translation --weight-format int8 openvino_model
+
+pip install pywin32
