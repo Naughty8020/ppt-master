@@ -63,7 +63,6 @@ class PPTController:
         self.view.slide_select.clear()
         self.view.slide_select.addItems([f"Slide {i+1}" for i in range(len(slides_text))])
         self.view.model_path_label.setText(f"PPTパス: {path}")
-        # ← join して文字列に変換
         self.view.input_text.setText("\n".join(slides_text[0]))
         self.view.output_text.clear()
 
@@ -72,7 +71,6 @@ class PPTController:
         idx = self.view.slide_select.currentIndex()
         slides_text = self.model.extract_slides_text()
         if 0 <= idx < len(slides_text):
-            # ← join して文字列に変換
             self.view.input_text.setText("\n".join(slides_text[idx]))
             self.view.output_text.clear()
 
@@ -107,7 +105,6 @@ class PPTController:
             path = self.model.save()
             self.edited_ppt_path = path
             self.view.output_text.append(f"PPT保存完了: {path}")
-
 
     def open_in_app(self):
         if not self.model: return
