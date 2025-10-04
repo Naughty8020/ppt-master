@@ -1,7 +1,5 @@
-from PySide6.QtWidgets import (
-    QMainWindow, QWidget, QVBoxLayout, QPushButton,
-    QTextEdit, QLabel, QComboBox
-)
+# ppt_view.py
+from PySide6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QPushButton, QTextEdit, QLabel, QComboBox
 
 class PPTView(QMainWindow):
     def __init__(self):
@@ -9,33 +7,25 @@ class PPTView(QMainWindow):
         self.setWindowTitle("PPT ローカル翻訳")
         self.setGeometry(200, 200, 1000, 600)
 
-        self.model_path_label = QLabel("PPTパス: なし")
         self.slide_select = QComboBox()
         self.input_text = QTextEdit()
         self.output_text = QTextEdit()
-        self.open_btn = QPushButton("📂 作業するPPTを開く")
+        self.open_btn = QPushButton("📂 PPTを開く")
         self.translate_btn = QPushButton("🚀 翻訳")
-        self.toneup_btn = QPushButton("✨ トーンアップ")
+        self.replace_btn = QPushButton("🔁 置換")
         self.save_btn = QPushButton("💾 保存")
 
-        self.view_box = QComboBox()
-        self.view_box.addItems(["元のPPT", "翻訳後PPT"])
-        self.open_in_app_btn = QPushButton("💻 選択したPPTを開く")
-
         layout = QVBoxLayout()
-        layout.addWidget(self.model_path_label)
         layout.addWidget(self.open_btn)
         layout.addWidget(QLabel("スライド選択"))
         layout.addWidget(self.slide_select)
-        layout.addWidget(QLabel("スライド内容"))
+        layout.addWidget(QLabel("元スライドテキスト"))
         layout.addWidget(self.input_text)
         layout.addWidget(self.translate_btn)
-        layout.addWidget(self.toneup_btn)
-        layout.addWidget(QLabel("翻訳/トーンアップ結果"))
+        layout.addWidget(QLabel("翻訳プレビュー"))
         layout.addWidget(self.output_text)
+        layout.addWidget(self.replace_btn)
         layout.addWidget(self.save_btn)
-        layout.addWidget(self.view_box)
-        layout.addWidget(self.open_in_app_btn)
 
         container = QWidget()
         container.setLayout(layout)

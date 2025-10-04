@@ -1,11 +1,8 @@
-import sys
 from PySide6.QtWidgets import QApplication
-from view import PPTView
-from controller import PPTController
+from controller import PPTController, PPTView  # もし controller.py 内に PPTView を書いた場合
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    view = PPTView()
-    controller = PPTController(view)
-    view.show()
-    sys.exit(app.exec())
+app = QApplication([])
+view = PPTView()
+controller = PPTController(view)
+view.show()
+app.exec()
